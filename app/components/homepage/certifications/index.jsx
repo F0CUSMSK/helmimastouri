@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { certifications } from "@/utils/data/certifications";
+import { withBasePath } from "@/utils/asset-path";
 import { FaMicrosoft } from "react-icons/fa";
 import { SiCisco, SiComptia, SiFortinet, SiNvidia } from "react-icons/si";
 
@@ -72,7 +73,7 @@ function Certifications() {
                   style={{ backgroundColor: colors.bg, border: `1px solid ${colors.border}` }}
                 >
                   {image ? (
-                    <Image src={image.src} alt={image.alt} width={image.width} height={image.height} />
+                    <Image src={withBasePath(image.src)} alt={image.alt} width={image.width} height={image.height} />
                   ) : (
                     <IconComponent style={{ color: colors.accent }} size={20} />
                   )}

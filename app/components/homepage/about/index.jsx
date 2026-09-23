@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { personalData } from "@/utils/data/personal-data";
+import { withBasePath } from "@/utils/asset-path";
 import { RiShieldCheckFill } from "react-icons/ri";
 import { FaUserShield, FaCloud } from "react-icons/fa";
 
@@ -70,7 +71,7 @@ function AboutSection() {
             >
               <div className="relative aspect-[4/5] w-full">
                 <Image
-                  src={personalData.profile}
+                  src={withBasePath(personalData.profile)}
                   alt="Portrait of Helmi Mastouri"
                   fill
                   sizes="(max-width: 1024px) 90vw, 40vw"

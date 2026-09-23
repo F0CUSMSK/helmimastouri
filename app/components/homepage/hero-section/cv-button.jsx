@@ -3,17 +3,22 @@
 import { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaDownload } from "react-icons/fa";
 
+// Public files fetched/opened directly need the basePath prefix — a plain
+// fetch() or window.open() bypasses the prefixing Next applies to <Image>.
+// The env var is baked in at build time by the deploy workflow.
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const CV_OPTIONS = [
   {
     code: "FR",
     label: "Français",
-    file: "/cv-helmi-fr.pdf",
+    file: `${BASE_PATH}/cv-helmi-fr.pdf`,
     accent: "#10B981",
   },
   {
     code: "EN",
     label: "English",
-    file: "/cv-helmi-en.pdf",
+    file: `${BASE_PATH}/cv-helmi-en.pdf`,
     accent: "#00E5FF",
   },
 ];
