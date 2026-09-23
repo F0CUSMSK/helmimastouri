@@ -1,4 +1,6 @@
+import { personalData } from '@/utils/data/personal-data';
 import { projectsData } from '@/utils/data/projects-data';
+import { FaGithub } from 'react-icons/fa';
 import ProjectCard from './project-card';
 
 const Projects = () => {
@@ -28,6 +30,19 @@ const Projects = () => {
           {projectsData.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <a
+            href={personalData.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2.5 px-6 py-3 bg-transparent border border-[#1E293B] rounded-lg text-gray-300 font-mono text-sm tracking-wider uppercase transition-all duration-300 hover:border-[#00E5FF] hover:text-[#00E5FF] hover:shadow-[0_0_20px_rgba(0,229,255,0.15)]"
+          >
+            <FaGithub size={18} aria-hidden="true" />
+            <span>More on GitHub</span>
+            <span className="text-[#00E5FF] transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
         </div>
       </div>
     </div>

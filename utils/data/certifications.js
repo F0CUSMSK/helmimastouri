@@ -12,7 +12,7 @@ export const certifications = [
     issuer: "CompTIA",
     domain: "Security",
     status: "in-progress",
-    note: "En cours — prévu déc. 2026",
+    note: "In progress — exam scheduled Dec 2026",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ export const certifications = [
   },
   {
     id: 7,
-    name: "NVIDIA Deep Learning & Detection d'Anomalies",
+    name: "NVIDIA Deep Learning & Anomaly Detection",
     issuer: "NVIDIA",
     domain: "AI / ML",
     status: "certified",

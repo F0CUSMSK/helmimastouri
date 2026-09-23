@@ -31,7 +31,7 @@ function Skills() {
         <div className="flex items-center">
           <span className="w-10 sm:w-24 h-[2px] bg-[#1E293B]"></span>
           <span className="bg-[#131926] border border-[#00E5FF20] w-fit text-[#00E5FF] p-2 px-3 sm:px-5 text-base sm:text-xl rounded-md font-mono">
-            Skills & Certs
+            Technical Skills
           </span>
           <span className="w-10 sm:w-24 h-[2px] bg-[#1E293B]"></span>
         </div>

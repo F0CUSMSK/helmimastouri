@@ -30,29 +30,47 @@ function ContactSection() {
         <div className="lg:w-3/4 ">
           <div className="flex flex-col gap-5 lg:gap-9">
             <p className="text-sm md:text-xl flex items-center gap-3">
-              <MdAlternateEmail
-                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17] cursor-pointer"
-                size={36}
-              />
-              <span className="font-mono text-gray-300">{personalData.email}</span>
+              <a
+                href={`mailto:${personalData.email}`}
+                aria-label={`Send an email to ${personalData.email}`}
+                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17]"
+              >
+                <MdAlternateEmail size={36} aria-hidden="true" />
+              </a>
+              <a href={`mailto:${personalData.email}`} className="font-mono text-gray-300 hover:text-[#00E5FF] transition-colors duration-300">
+                {personalData.email}
+              </a>
             </p>
             <p className="text-sm md:text-xl flex items-center gap-3">
-              <IoMdCall
-                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17] cursor-pointer"
-                size={36}
-              />
-              <span className="font-mono text-gray-300">
+              <a
+                href={`tel:${personalData.phone.replace(/\s+/g, '')}`}
+                aria-label={`Call ${personalData.phone}`}
+                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17]"
+              >
+                <IoMdCall size={36} aria-hidden="true" />
+              </a>
+              <a href={`tel:${personalData.phone.replace(/\s+/g, '')}`} className="font-mono text-gray-300 hover:text-[#00E5FF] transition-colors duration-300">
                 {personalData.phone}
-              </span>
+              </a>
             </p>
             <p className="text-sm md:text-xl flex items-center gap-3">
-              <CiLocationOn
-                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17] cursor-pointer"
-                size={36}
-              />
-              <span className="font-mono text-gray-300">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(personalData.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Locate ${personalData.address} on the map`}
+                className="bg-[#1E293B] p-2 rounded-full hover:bg-[#00E5FF] hover:scale-110 transition-all duration-300 text-[#00E5FF] hover:text-[#0B0F17]"
+              >
+                <CiLocationOn size={36} aria-hidden="true" />
+              </a>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(personalData.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-gray-300 hover:text-[#00E5FF] transition-colors duration-300"
+              >
                 {personalData.address}
-              </span>
+              </a>
             </p>
           </div>
           <div className="mt-8 lg:mt-16 flex items-center gap-5 lg:gap-10">

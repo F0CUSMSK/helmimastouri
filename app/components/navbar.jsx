@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { id: "about", label: "About" },
@@ -15,6 +15,28 @@ const NAV_LINKS = [
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+
+  // Scroll-spy: highlight the nav link of the section currently in view
+  useEffect(() => {
+    const sections = NAV_LINKS
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5] }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   // Next.js doesn't reliably scroll between same-page hash links, so we
   // scroll explicitly — this is what makes the second, third, … menu click work.
@@ -53,7 +75,11 @@ function Navbar() {
                 href={`/#${link.id}`}
                 onClick={(e) => goTo(e, link.id)}
               >
-                <div className="text-sm text-gray-500 font-mono uppercase transition-colors duration-300 hover:text-[#00E5FF]">
+                <div
+                  className={`text-sm font-mono uppercase transition-colors duration-300 hover:text-[#00E5FF] ${
+                    active === link.id ? "nav-link-active" : "text-gray-500"
+                  }`}
+                >
                   {link.label}
                 </div>
               </Link>
@@ -98,7 +124,11 @@ function Navbar() {
                 onClick={(e) => goTo(e, link.id)}
               >
                 <span className="text-[#00E5FF] font-mono text-xs">&gt;</span>
-                <span className="text-sm text-gray-300 font-mono uppercase tracking-wider transition-colors duration-300">
+                <span
+                  className={`text-sm font-mono uppercase tracking-wider transition-colors duration-300 ${
+                    active === link.id ? "text-[#00E5FF]" : "text-gray-300"
+                  }`}
+                >
                   {link.label}
                 </span>
               </Link>

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { FaShieldAlt } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 function ProjectCard({ project, index }) {
 
@@ -10,11 +11,11 @@ function ProjectCard({ project, index }) {
       {/* Top gradient bar */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent opacity-30 group-hover:opacity-80 transition-opacity duration-500"></div>
 
-      <div className="p-5 lg:p-6">
+      <div className="p-5 lg:p-6 flex flex-col h-full">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="p-2 rounded-md bg-[#00E5FF08] border border-[#00E5FF15] group-hover:border-[#00E5FF35] transition-all duration-300">
-            <FaShieldAlt className="text-[#00E5FF]" size={20} />
+            <FaShieldAlt className="text-[#00E5FF]" size={20} aria-hidden="true" />
           </div>
           <span className="text-xs text-gray-600 font-mono">{project.role}</span>
         </div>
@@ -30,7 +31,7 @@ function ProjectCard({ project, index }) {
         </p>
 
         {/* Tech tags */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
           {project.tools.map((tag, i) => (
             <span
               key={i}
@@ -40,6 +41,34 @@ function ProjectCard({ project, index }) {
             </span>
           ))}
         </div>
+
+        {/* Links — render only when the project defines them */}
+        {(project.code || project.demo) && (
+          <div className="mt-auto flex items-center gap-3 pt-2 border-t border-[#1E293B]/60">
+            {project.code && (
+              <a
+                href={project.code}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-[#00E5FF] transition-colors duration-300"
+              >
+                <FaGithub size={14} aria-hidden="true" />
+                <span>Source</span>
+              </a>
+            )}
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-[#10B981] transition-colors duration-300"
+              >
+                <FaExternalLinkAlt size={12} aria-hidden="true" />
+                <span>Live Demo</span>
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

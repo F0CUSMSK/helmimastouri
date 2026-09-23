@@ -86,7 +86,7 @@ function Certifications() {
                       className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]"
                       style={{ animation: "pulseRing 2s ease-out infinite" }}
                     ></span>
-                    EN COURS
+                    IN PROGRESS
                   </span>
                 ) : (
                   <span className="flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[9px] tracking-widest border border-[#10B98125] bg-[#10B98108] text-[#10B981]">
