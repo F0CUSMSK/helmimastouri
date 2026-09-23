@@ -1,24 +1,28 @@
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/footer";
 import ScrollToTop from "./components/helper/scroll-to-top";
+import CyberBackground from "./components/helper/cyber-background";
 import Navbar from "./components/navbar";
 import "./css/card.scss";
 import "./css/globals.scss";
-const inter = Inter({ subsets: ["latin"] });
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata = {
-  title: "Portfolio of Abu Said - Software Developer",
+  title: "Helmi Mastouri | Cybersecurity Engineer Portfolio",
   description:
-    "This is the portfolio of Abu Said. I am a full stack developer and a self taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
+    "Portfolio of Helmi Mastouri – Cybersecurity Engineer specialising in DevSecOps, SIEM Operations, Cloud Hardening, and Threat Detection. AZ-900 certified, actively seeking PFE internship in Europe.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans`} suppressHydrationWarning>
+        <CyberBackground />
         <ToastContainer />
         <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white">
           <Navbar />
@@ -27,7 +31,6 @@ export default function RootLayout({ children }) {
         </main>
         <Footer />
       </body>
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
     </html>
   );
 }

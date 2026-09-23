@@ -1,69 +1,95 @@
-// @flow strict
+"use client";
 
-import { skillsData } from "@/utils/data/skills";
-import { skillsImage } from "@/utils/skill-image";
-import Image from "next/image";
-import Marquee from "react-fast-marquee";
+import { skillCategories } from "@/utils/data/skills";
+import { FaShieldAlt, FaNetworkWired } from "react-icons/fa";
+import { SiElastic } from "react-icons/si";
+
+const categoryIcons = {
+  "Security & Cloud": FaShieldAlt,
+  "SIEM & Monitoring": SiElastic,
+  "Networking & Dev": FaNetworkWired,
+};
+
+const categoryColors = {
+  "Security & Cloud": { accent: "#00E5FF", bg: "#00E5FF06", border: "#00E5FF15", hoverBorder: "#00E5FF35" },
+  "SIEM & Monitoring": { accent: "#10B981", bg: "#10B98106", border: "#10B98115", hoverBorder: "#10B98135" },
+  "Networking & Dev": { accent: "#00E5FF", bg: "#00E5FF06", border: "#00E5FF15", hoverBorder: "#00E5FF35" },
+};
 
 function Skills() {
   return (
-    <div id="skills" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
-      <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20"></div>
+    <div id="skills" className="relative z-50 border-t my-12 lg:my-24 border-[#1E293B]">
+      <div className="w-[100px] h-[100px] bg-[#00E5FF] rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl opacity-10"></div>
 
       <div className="flex justify-center -translate-y-[1px]">
         <div className="w-3/4">
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-violet-500 to-transparent  w-full" />
+          <div className="h-[1px] bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent w-full" />
         </div>
       </div>
 
       <div className="flex justify-center my-5 lg:py-8">
-        <div className="flex  items-center">
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
-          <span className="bg-[#1a1443] w-fit text-white p-2 px-5 text-xl rounded-md">
-            Skills
+        <div className="flex items-center">
+          <span className="w-10 sm:w-24 h-[2px] bg-[#1E293B]"></span>
+          <span className="bg-[#131926] border border-[#00E5FF20] w-fit text-[#00E5FF] p-2 px-3 sm:px-5 text-base sm:text-xl rounded-md font-mono">
+            Skills & Certs
           </span>
-          <span className="w-24 h-[2px] bg-[#1a1443]"></span>
+          <span className="w-10 sm:w-24 h-[2px] bg-[#1E293B]"></span>
         </div>
       </div>
 
-      <div className="w-full my-12">
-        <Marquee
-          gradient={false}
-          speed={80}
-          pauseOnHover={true}
-          pauseOnClick={true}
-          delay={0}
-          play={true}
-          direction="left"
-        >
-          {skillsData.map((skill, id) => (
-            <div className="w-36 min-w-fit h-fit flex flex-col items-center justify-center transition-all duration-500 m-3 sm:m-5 rounded-lg group relative hover:scale-[1.15] cursor-pointer"
-              key={id}>
-              <div className="h-full w-full rounded-lg border border-[#1f223c] bg-[#11152c] shadow-none shadow-gray-50 group-hover:border-violet-500 transition-all duration-500">
-                <div className="flex -translate-y-[1px] justify-center">
-                  <div className="w-3/4">
-                    <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
-                  </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+        {skillCategories.map((cat, catIdx) => {
+          const colors = categoryColors[cat.category] || categoryColors["Security & Cloud"];
+          const IconComponent = categoryIcons[cat.category] || FaShieldAlt;
+
+          return (
+            <div
+              key={catIdx}
+              className={`group rounded-xl bg-[#131926]/60 backdrop-blur-sm p-5 lg:p-6 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 ${
+                catIdx === skillCategories.length - 1 && skillCategories.length % 2 === 1 ? "md:col-span-2" : ""
+              }`}
+              style={{ border: `1px solid ${colors.border}` }}
+            >
+              {/* Category header */}
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="p-2 rounded-md transition-all duration-300"
+                  style={{ backgroundColor: colors.bg, border: `1px solid ${colors.border}` }}
+                >
+                  <IconComponent style={{ color: colors.accent }} size={20} />
                 </div>
-                <div className="flex flex-col items-center justify-center gap-3 p-6">
-                  <div className="h-8 sm:h-10">
-                    <Image
-                      src={skillsImage(skill)?.src}
-                      alt={skill}
-                      width={40}
-                      height={40}
-                      className="!h-full !w-auto rounded-lg"
-                      style={{ width: 'auto', height: 'auto' }}
-                    />
-                  </div>
-                  <p className="text-white text-sm sm:text-lg">
+                <h3 className="font-mono text-sm font-semibold tracking-wider uppercase" style={{ color: colors.accent }}>
+                  {cat.category}
+                </h3>
+              </div>
+
+              {/* Skill tags */}
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill, skillIdx) => (
+                  <span
+                    key={skillIdx}
+                    className="px-3 py-1.5 text-xs font-mono rounded-md cursor-default transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: colors.bg,
+                      border: `1px solid ${colors.border}`,
+                      color: colors.accent,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.borderColor = colors.hoverBorder;
+                      e.target.style.boxShadow = `0 0 12px ${colors.accent}15`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.borderColor = colors.border;
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
                     {skill}
-                  </p>
-                </div>
+                  </span>
+                ))}
               </div>
             </div>
-          ))}
-        </Marquee>
+          );
+        })}
       </div>
     </div>
   );

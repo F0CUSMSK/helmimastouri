@@ -1,68 +1,45 @@
 // @flow strict
 
 import * as React from 'react';
+import { FaShieldAlt } from "react-icons/fa";
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, index }) {
 
   return (
-    <div className="from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] w-full">
-      <div className="flex flex-row">
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
-        <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
-      </div>
-      <div className="px-4 lg:px-8 py-3 lg:py-5 relative">
-        <div className="flex flex-row space-x-1 lg:space-x-2 absolute top-1/2 -translate-y-1/2">
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-red-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-orange-400"></div>
-          <div className="h-2 w-2 lg:h-3 lg:w-3 rounded-full bg-green-200"></div>
-        </div>
-        <p className="text-center ml-3 text-[#16f2b3] text-base lg:text-xl">
-          {project.name}
-        </p>
-      </div>
-      <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-        <code className="font-mono text-xs md:text-sm lg:text-base">
-          <div className="blink">
-            <span className="mr-2 text-pink-500">const</span>
-            <span className="mr-2 text-white">project</span>
-            <span className="mr-2 text-pink-500">=</span>
-            <span className="text-gray-400">{'{'}</span>
-          </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-            <span className="text-gray-400">{`'`}</span>
-            <span className="text-amber-300">{project.name}</span>
-            <span className="text-gray-400">{`',`}</span>
-          </div>
+    <div className={`group relative rounded-xl border border-[#1E293B] bg-[#131926]/60 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-[#00E5FF30] hover:shadow-[0_0_30px_rgba(0,229,255,0.06)] hover:-translate-y-1`}>
+      {/* Top gradient bar */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent opacity-30 group-hover:opacity-80 transition-opacity duration-500"></div>
 
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className=" text-white">tools:</span>
-            <span className="text-gray-400">{` ['`}</span>
-            {
-              project.tools.map((tag, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-amber-300">{tag}</span>
-                  {
-                    project.tools?.length - 1 !== i &&
-                    <span className="text-gray-400">{`', '`}</span>
-                  }
-                </React.Fragment>
-              ))
-            }
-            <span className="text-gray-400">{"],"}</span>
+      <div className="p-5 lg:p-6">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="p-2 rounded-md bg-[#00E5FF08] border border-[#00E5FF15] group-hover:border-[#00E5FF35] transition-all duration-300">
+            <FaShieldAlt className="text-[#00E5FF]" size={20} />
           </div>
-          <div>
-            <span className="ml-4 lg:ml-8 mr-2 text-white">myRole:</span>
-            <span className="text-orange-400">{project.role}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          <div className="ml-4 lg:ml-8 mr-2">
-            <span className="text-white">Description:</span>
-            <span className="text-cyan-400">{' ' + project.description}</span>
-            <span className="text-gray-400">,</span>
-          </div>
-          <div><span className="text-gray-400">{`};`}</span></div>
-        </code>
+          <span className="text-xs text-gray-600 font-mono">{project.role}</span>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-[#00E5FF] transition-colors duration-300 font-heading">
+          {project.name}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+          {project.description}
+        </p>
+
+        {/* Tech tags */}
+        <div className="flex flex-wrap gap-2">
+          {project.tools.map((tag, i) => (
+            <span
+              key={i}
+              className="px-2.5 py-1 text-[10px] font-mono rounded-md bg-[#10B98108] border border-[#10B98115] text-[#10B981] hover:bg-[#10B98112] hover:border-[#10B98130] transition-all duration-300 cursor-default"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
