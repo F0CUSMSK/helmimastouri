@@ -47,7 +47,12 @@ function ContactForm() {
         message: "",
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      // Static hosts (GitHub Pages) have no /api/contact backend —
+      // surface a clear message instead of an undefined toast.
+      toast.error(
+        error?.response?.data?.message ||
+          "Could not send — please email me directly instead."
+      );
     } finally {
       setIsLoading(false);
     };
